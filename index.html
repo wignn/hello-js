@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code</title>
+    <link rel="icon" type="image/svg+xml" href="./react-svgrepo-com.svg">
+    <style>
+        @keyframes blink {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            }
+
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+
+        .code-container {
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+            animation: blink 1.5s infinite;
+            text-align: left;
+        }
+
+        pre {
+            background: none;
+            color: #f8fafc;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .token-keyword {
+            color: #7dd3fc;
+        }
+
+        .token-function {
+            color: #38bdf8;
+        }
+
+        .token-string {
+            color: #fbbf24;
+        }
+
+        .token-punctuation {
+            color: #94a3b8;
+        }
+
+        button {
+            background-color: #0ea5e9;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 18px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #0284c7;
+        }
+
+        #message {
+            margin-top: 18px;
+            font-size: 1.5rem;
+        }
+
+        .hidden {
+            visibility: hidden;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        @keyframes cursor-blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: #d4d4d4;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="code-container">
+        <pre>
+<span class="token-keyword">function</span> <span class="token-function">sayHello</span><span class="token-keyword">()</span> <span class="token-punctuation">{</span>
+    <span class="token-keyword">return</span> <span class="token-string">"Hello</span> <span class="token-string">js!"</span>
+<span class="token-punctuation">}</span>;
+
+ <span class="token-keyword">console.</span><span class="token-function">log(</span><span class="token-function">sayHello</span><span class="token-keyword">()</span><span>)</span>;
+        </pre>
+    </div>
+    <button id="runButton" onclick="displayMessage()">Run Code</button>
+    <p id="message" class="hidden">
+        <span id="text"></span><span id="cursor" class="cursor"></span>
+    </p>
+
+    <script>
+        function displayMessage() {
+            const message = 'Hello js!';
+            const textContainer = document.getElementById('text');
+            const messageContainer = document.getElementById('message');
+            const cursor = document.getElementById('cursor')
+            const runButton = document.getElementById('runButton')
+            runButton.disabled = true;
+            cursor.style.animation = '';
+            textContainer.textContent = '';
+            messageContainer.classList.remove('hidden');
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < message.length) {
+                    textContainer.textContent += message.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    cursor.style.animation = 'cursor-blink 1s infinite';
+                    runButton.disabled = false;
+                }
+            }, 100);
+        }
+    </script>
+</body>
+
+</html>
